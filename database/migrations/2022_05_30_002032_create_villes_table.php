@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateVillesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('villes', function (Blueprint $table) {
+            $table->id();
+            $table->string('LibVille', 20);
+            $table->foreignId('pays_id')->constrained('pays');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('villes', function(Blueprint $table){
+            $table->dropConstrainedForeignId('pays_id');
+        });
+        Schema::dropIfExists('villes');
+    }
+}
